@@ -1,8 +1,9 @@
 # Mistake → Macro Impact Map
 
 <div align="center">
-  <h3>Causality Visualized</h3>
-  <p>This isn’t just analytics. It’s the butterfly effect of every micro-error, mapped to round losses.</p>
+  <h1>🛑 Stop Losing Rounds You Should Have Won.</h1>
+  <h3>One missed trade. One bad peek. One lost game. 💔</h3>
+  <p><i>It’s not just a "mistake". It’s a tragedy waiting to unfold.</i></p>
 </div>
 
 <br />
@@ -13,67 +14,65 @@
 
 <br />
 
-## ⚡ Overview
+## 🦋 The Butterfly Effect of Defeat
 
-**Mistake → Macro Impact Map** is a next-generation match analysis tool designed to visualize the ripple effects of in-game mistakes. By tracking "micro-errors" and mapping them to their strategic consequences, this tool helps players and coaches understand the *true* cost of every decision.
+You think it was just a "bad timing" death? **Think again.**
 
-<div align="center">
-  <img src="assets/preview-2.png" alt="Mistake Macro Impact Map Preview 2" width="48%" />
-  <img src="assets/preview-3.png" alt="Mistake Macro Impact Map Preview 3" width="48%" />
-</div>
+That single untraded death gave them map control. 📉
+That lost map control forced a rotation.
+That rotation wasted your team's utility.
+And 30 seconds later? **You lost the round.**
 
-## 🚀 Key Features
-
-*   **Impact Cascade**: Visualize how a single untraded death spirals into a round loss.
-*   **Tactical Correction**: Get actionable feedback on how to prevent the same mistake next time.
-*   **Economy & Control Analysis**: See the hidden costs of mistakes on your economy and map control.
-*   **Interactive Tactical Map**: Replay the scenario with a tactical 2D map view.
+**Mistake → Macro Impact Map** doesn't just show you stats. It shows you the *nightmare* you created—and exactly how to stop it from happening again.
 
 <div align="center">
-  <img src="assets/preview-4.png" alt="Mistake Macro Impact Map Preview 4" width="100%" />
+  <img src="assets/preview-2.png" alt="Untraded Death Impact" width="48%" />
+  <img src="assets/preview-3.png" alt="Round Loss Cascade" width="48%" />
 </div>
 
-## 🛠️ Stack
+## ✨ Why You Need This
 
-*   **Runtime**: [Bun](https://bun.sh)
-*   **Framework**: React 19 + Vite 7
-*   **Language**: TypeScript
-*   **Styling**: Tailwind CSS 4 (OKLCH colors)
-*   **State**: Zustand + React Query
-*   **UI**: shadcn/ui (Radix primitives)
+### 🔍 See the Invisible Thread
+Every round loss has a root cause. We trace the chaos back to the *exact* moment everything went wrong. No more guessing.
 
-## 💻 Setup
+### 🛡️ Stop the Bleeding
+"My bad" doesn't fix your ELO. Our **Tactical Correction** engine gives you the cold, hard truth on how to survive next time.
 
-1.  **Install dependencies**
+### 💸 The Hidden Cost
+You didn't just lose a gun. You tanked your team's economy for two rounds. We visualize the **Economic & Control** impact so you feel the weight of every decision.
+
+<div align="center">
+  <img src="assets/preview-4.png" alt="Tactical Map Analysis" width="100%" />
+</div>
+
+## 🏗️ Built With Passion & Power
+
+*   **Speed**: [Bun](https://bun.sh) ⚡
+*   **Core**: React 19 + Vite 7 ⚛️
+*   **Style**: Tailwind CSS 4 (OKLCH vibrant colors) 🎨
+*   **Logic**: TypeScript + Zustand 🧠
+
+## 🚀 Get Started in Seconds
+
+1.  **Clone & Install**
     ```bash
+    git clone https://github.com/MSAbhishek22/Mistake-Macro-Impact-Map.git
+    cd Mistake-Macro-Impact-Map
     bun install
     ```
 
-2.  **Run the app**
+2.  **Witness the Impact**
     ```bash
     bun dev
     ```
 
-3.  **Build for production**
+3.  **Build Your Legacy**
     ```bash
     bun run build
     ```
 
-## 🎮 Demo Mode
-
-*   The app runs in **Demo Mode** by default.
-*   Trigger an analysis to see the engine in action with mocked match data.
-
-## ☁️ Deployment
-
-Easily deploy to Vercel:
-1.  Import this repo.
-2.  Set framework preset to **Vite**.
-3.  Build command: `bun run build`.
-4.  Output directory: `dist`.
-
 ---
 
 <div align="center">
-  <p>Created by love from M S Abhishek</p>
+  <h3>✨ Crafted with ❤️ and ☕ by M S Abhishek ✨</h3>
 </div>
