@@ -4,10 +4,38 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
+    <title>Mistake to Macro Impact Map</title>
+  
+<style id="hero3d-style">
+.hero3d-wrap{max-width:1100px;margin:18px auto;padding:0 16px}
+.hero3d-box{position:relative;border-radius:16px;overflow:hidden;background:#0b1020}
+#hero3d{display:block;width:100%;height:min(54vh,420px);min-height:260px;cursor:grab}
+.hero3d-cap{padding:10px 14px;font-size:14px;opacity:.85;text-align:center}
+.scroll-cue{display:block;text-align:center;padding:10px;font-size:15px;text-decoration:none}
+.landing-pso{max-width:1100px;margin:10px auto 26px;padding:0 16px;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.landing-pso section{border:1px solid rgba(127,127,127,.35);border-radius:14px;padding:16px}
+.landing-pso h2{margin:0 0 8px;font-size:19px}
+.landing-pso p{margin:0;line-height:1.55}
+@media (prefers-reduced-motion:reduce){.scroll-cue{animation:none}}
+</style>
+</head>
   <body>
-    <div id="root"></div>
+    
+<main id="landing" style="font-family:system-ui,sans-serif;max-width:1100px;margin:0 auto;padding:28px 16px">
+ <h1 style="font-size:32px;margin:0 0 8px">Mistake to Macro Impact Map</h1>
+ <p style="font-size:17px;line-height:1.55;margin:0">Stop losing rounds you should have won. See how one small mistake turns into a lost round.</p>
+</main>
+
+<div class="hero3d-wrap" id="hero3d-wrap">
+ <div class="hero3d-box"><canvas id="hero3d" aria-label="Interactive 3D scene"></canvas></div>
+ <p class="hero3d-cap">The cascade in 3D: one mistake, then map control, a forced rotation, wasted utility, and the lost round — watch the pulse travel the chain. Drag to turn it.</p>
+ <a class="scroll-cue" href="#app-pso">&#8595; Scroll to explore</a>
+</div>
+<div class="landing-pso" id="app-pso">
+<section><h2>The problem</h2><p>One untraded death gives the other team map control. That forces a rotation, wastes your team's utility, and a few seconds later the round is gone — but the scoreboard only shows the last part.</p></section>
+<section><h2>The solution</h2><p>The Mistake to Macro Impact Map traces a round loss back along the chain — the mistake, the map control it gave away, the rotation it forced — and shows the economic and control cost at each step.</p></section>
+<section><h2>The outcome</h2><p>Instead of a bare 'my bad', you get the exact moment things went wrong and a tactical correction for next time, so the same mistake stops costing rounds.</p></section>
+</div><div id="root"></div>
     <script>
         // Post errors to parent window (for Surgent preview integration)
         window._errorsSent = new Set();
@@ -56,5 +84,46 @@
         });
     </script>
     <script type="module" src="/src/main.tsx"></script>
-  </body>
+  
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<script type="module" id="hero3d-module">
+try{
+ const THREE=await import('three').catch(()=>null);
+ const canvas=document.getElementById('hero3d');
+ if(THREE&&canvas){
+  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(45,2,0.1,100); camera.position.set(0,1.6,9);
+  scene.add(new THREE.AmbientLight(0xffffff,0.7));
+  const key=new THREE.PointLight(0xffffff,60); key.position.set(4,6,6); scene.add(key);
+  const group=new THREE.Group(); scene.add(group);
+  const M=(c,o)=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.35,metalness:.15},o||{}));
+  const sph=(c,r)=>new THREE.Mesh(new THREE.SphereGeometry(r,24,18),M(c));
+  const box=(c,w,h,d)=>new THREE.Mesh(new THREE.BoxGeometry(w,h,d),M(c));
+  const line=(a,b,c)=>{const g=new THREE.BufferGeometry().setFromPoints([a,b]);return new THREE.Line(g,new THREE.LineBasicMaterial({color:c||0x8ea2ff}));};
+  const V=(x,y,z)=>new THREE.Vector3(x,y,z);
+  
+  const cols=[0xf87171,0xfb923c,0xfacc15,0x38bdf8,0x4ade80];
+  const pts=[V(-3.4,1.2,0),V(-1.7,0.2,0.6),V(0,-0.8,0),V(1.7,0.2,-0.6),V(3.4,1.2,0)];
+  const nodes=pts.map((p,i)=>{const s=sph(cols[i],0.34+i*0.05);s.position.copy(p);group.add(s);return s;});
+  for(let i=0;i<4;i++) group.add(line(pts[i],pts[i+1],0xf87171));
+  const pulse=sph(0xffffff,0.17); group.add(pulse);
+  var tick=(t)=>{const u=(t*0.35)%1;const seg=Math.min(3,Math.floor(u*4));const f=u*4-seg;pulse.position.lerpVectors(pts[seg],pts[seg+1],f);nodes.forEach((n,i)=>{const s=1+0.25*Math.max(0,1-Math.abs(u*4-i))*Math.sin(t*6);n.scale.setScalar(Math.max(0.8,s));});};
+
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let drag=false,px=0,ry=0.4,rx=0.15;
+  canvas.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener('pointermove',e=>{if(drag){ry+=(e.clientX-px)*0.008;px=e.clientX;}});
+  canvas.addEventListener('pointerup',()=>{drag=false;});
+  function resize(){const w=canvas.clientWidth||800,h=canvas.clientHeight||320;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+  window.addEventListener('resize',resize); resize();
+  let t=0;
+  function frame(){ t+=0.016; if(!drag&&!reduced) ry+=0.0035; group.rotation.y=ry; group.rotation.x=rx;
+    if(typeof tick==='function') tick(t);
+    renderer.render(scene,camera); if(!reduced&&!document.hidden) requestAnimationFrame(frame); }
+  frame();
+ }
+}catch(e){/* guarded no-op: page works without WebGL/CDN */}
+</script>
+</body>
 </html>
